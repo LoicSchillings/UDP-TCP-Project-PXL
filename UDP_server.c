@@ -126,6 +126,10 @@ int initialization()
 
 void execution( int internet_socket )
 {
+	//Step 2.0 Set socket option time_out to active
+  	DWORD timeout = 3000;
+  	setsockopt(internet_socket, SOL_SOCKET, SO_RCVTIMEO, (const char*)&timeout, sizeof timeout);
+	
 	//Step 2.1 Receive start of process
 	int number_of_bytes_received = 0;
 	char buffer[1000];
@@ -150,7 +154,7 @@ void execution( int internet_socket )
 	
 	for (int i = 0; i < 9; i++)
 	{
-    number = (rand() % 10) + 1;
+    number = (rand() % 25) + 1;
     sprintf(chartosend, "%d", number); //Put integer in char
     
     int number_of_bytes_send = 0;
@@ -177,7 +181,7 @@ void execution( int internet_socket )
 	//Step 2.4 Send second set of random integers
 	for (int i = 0; i < 9; i++)
 	{
-    number = (rand() % 10) + 1;
+    number = (rand() % 25) + 1;
     sprintf(chartosend, "%d", number); //Put integer in char
     
     int number_of_bytes_send = 0;
